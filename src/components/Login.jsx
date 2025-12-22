@@ -28,7 +28,7 @@ export default function Login() {
       
       // Simulate redirect after successful login
       setTimeout(() => {
-        window.location.href = '/dashboard';
+        window.location.href = '/';
       }, 1500);
     } catch (error) {
       setMessage({ 

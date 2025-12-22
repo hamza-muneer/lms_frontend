@@ -32,7 +32,7 @@ export const Login = () => {
       
       // Redirect to dashboard
       setTimeout(() => {
-        navigate('/dashboard');
+        navigate('/');
       }, 1500);
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed. Please check your credentials.');

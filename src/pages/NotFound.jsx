@@ -1,7 +1,7 @@
 export default function NotFound(){
     return(
         <>
-        <P>Not found</P>
+        <p>Not found</p>
         </>
     )
 }

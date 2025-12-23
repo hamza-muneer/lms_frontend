@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { useAuth } from '@/contexts/AuthContext';
 import api from '../api/axios';
 import { FaEnvelope, FaLock, FaEye, FaEyeSlash, FaGoogle, FaGithub, FaCheckCircle } from 'react-icons/fa';
 import { MdLogin } from 'react-icons/md';
@@ -8,6 +10,8 @@ export default function Login() {
   const [message, setMessage] = useState({ text: '', type: '' });
   const [showPassword, setShowPassword] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
@@ -26,10 +30,9 @@ export default function Login() {
       setMessage({ text: 'Login successful! Redirecting...', type: 'success' });
       console.log(response.data);
       
-      // Simulate redirect after successful login
-      setTimeout(() => {
-        window.location.href = '/dashboard';
-      }, 1500);
+      // Set auth user in context and navigate to dashboard
+      await login(form.email, form.password);
+      navigate('/dashboard');
     } catch (error) {
       setMessage({ 
         text: error.response?.data?.message || 'Login failed. Please check your credentials.', 

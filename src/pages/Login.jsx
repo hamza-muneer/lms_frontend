@@ -3,12 +3,14 @@ import { useNavigate, Link } from 'react-router-dom';
 import { CheckCircle2, Mail, Lock, ArrowRight, Loader2 } from 'lucide-react';
 import { toast } from 'sonner';
 import api from '../api/axios';
+import { useAuth } from '@/contexts/AuthContext';
 
 export const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
+  const { login } = useAuth();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -30,11 +32,13 @@ export const Login = () => {
       toast.success('Login successful! Redirecting...');
       console.log(response.data);
       
+      // Set auth user in context so protected routes can load
+      await login(email, password);
+
       // Redirect to dashboard
-      setTimeout(() => {
-        navigate('/dashboard');
-        console.log('Redirecting to:', redirectUrl); // <-- Print route in console
-      }, 1500);
+      const redirectUrl = '/dashboard';
+      console.log('Redirecting to:', redirectUrl);
+      navigate(redirectUrl);
     } catch (error) {
       toast.error(error.response?.data?.message || 'Login failed. Please check your credentials.');
     } finally {

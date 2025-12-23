@@ -45,6 +45,14 @@ export const Login = () => {
       setIsLoading(false);
     }
   };
+  const showpassword = () => {
+    const passwordInput = document.getElementById('password');
+    if (passwordInput.type === 'password') {
+      passwordInput.type = 'text';
+    } else {
+      passwordInput.type = 'password';
+    }
+  };
 
   return (
     <div className="flex min-h-screen">
@@ -112,6 +120,8 @@ export const Login = () => {
                   placeholder="••••••••"
                   className="w-full rounded-xl border border-input bg-background py-3.5 pl-12 pr-4 text-foreground placeholder:text-muted-foreground focus:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20"
                   required
+                  id="password"
+                  onClick={showpassword}
                 />
               </div>
             </div>
@@ -124,7 +134,7 @@ export const Login = () => {
                 />
                 <span className="text-sm text-muted-foreground">Remember me</span>
               </label>
-              <a href="#" className="text-sm font-medium text-primary hover:underline">
+              <a href="/forgot-password" className="text-sm font-medium text-primary hover:underline">
                 Forgot password?
               </a>
             </div>
